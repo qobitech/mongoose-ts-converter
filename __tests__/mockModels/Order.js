@@ -2,10 +2,11 @@
 const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema({
-  items: [{ type: String }],
+  items: [{ type: String, required: true }],
   customer: {
     name: { type: String, required: true },
     age: { type: Number },
+    registered: { type: Boolean },
   },
 })
 
