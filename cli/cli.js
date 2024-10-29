@@ -34,7 +34,7 @@ if (!fs.existsSync(outputDir)) {
 }
 
 // Call the extractor function to generate TypeScript schemas
-extractModelsToSchemas(modelDir, outputDir, { generateDocs: !!options.serve })
+extractModelsToSchemas(modelDir, outputDir)
 
 // Start the documentation server if the --serve option is specified
 if (options.serve) {

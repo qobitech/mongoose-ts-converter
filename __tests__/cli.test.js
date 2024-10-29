@@ -13,11 +13,11 @@ describe("CLI Tool - Mongoose to TypeScript", () => {
     fs.mkdirSync(outputDir)
   })
 
-  afterAll(() => {
-    if (fs.existsSync(outputDir)) {
-      fs.rmSync(outputDir, { recursive: true })
-    }
-  })
+  // afterAll(() => {
+  //   if (fs.existsSync(outputDir)) {
+  //     fs.rmSync(outputDir, { recursive: true })
+  //   }
+  // })
 
   test("should generate TypeScript schemas from Mongoose models", (done) => {
     const cliPath = path.resolve("cli/cli.js")
