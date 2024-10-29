@@ -12,6 +12,7 @@ Mongoose TypeScript Converter is a lightweight Node.js library designed to simpl
 - Converts Mongoose schemas to TypeScript interfaces
 - Supports complex data types, including nested objects and arrays
 - CLI support for easy integration in projects
+- Option to start a documentation server to view generated types
 
 ## Installation
 
@@ -58,6 +59,8 @@ npx mongoose-ts-converter --models ./path/to/models --output ./path/to/output
 ```bash
 -m, --models <dir> - Directory containing your Mongoose model files
 -o, --output <dir> - Directory to output the generated TypeScript files
+--serve              Start a documentation server after generating schemas
+--port <number>      Specify the port for the documentation server (default: 3000)
 ```
 
 ## Example
@@ -84,6 +87,26 @@ export interface User {
   username: string
   email: string
 }
+```
+
+## Starting the Documentation Server
+
+To start a documentation server that serves the generated TypeScript schemas, add the --serve option:
+
+```bash
+npx mongoose-ts-converter --models ./path/to/models --output ./path/to/output --serve
+```
+
+Specify a custom port for the documentation server (default is 3000):
+
+```bash
+npx mongoose-ts-converter --models ./path/to/models --output ./path/to/output --serve --port 4000
+```
+
+After running the command, open your browser and go to:
+
+```bash
+http://localhost:<specified-port>
 ```
 
 ## License

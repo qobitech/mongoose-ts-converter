@@ -1,4 +1,4 @@
-const { spawn } = require("child_process")
+const { spawn, exec } = require("child_process")
 const fs = require("fs")
 const path = require("path")
 
@@ -124,6 +124,37 @@ describe("CLI Tool - Mongoose to TypeScript", () => {
       const stats = fs.statSync(filePath)
       expect(stats.mode & 0o777).toBe(0o644) // Check read/write permissions for owner
       done()
+    })
+  })
+
+  test("should start the documentation server with --serve option", (done) => {
+    const serverProcess = exec(
+      `node ./cli/cli.js -m ${modelDir} -o ${outputDir} --serve`
+    )
+
+    serverProcess.stdout.on("data", (data) => {
+      if (data.includes("Documentation available at")) {
+        expect(data).toContain(
+          "Documentation available at http://localhost:3000"
+        )
+        serverProcess.kill()
+        done()
+      }
+    })
+  })
+
+  test("should start the server on a custom port", (done) => {
+    const customPort = 4000
+    const serverProcess = exec(
+      `node ./cli/cli.js -m ${modelDir} -o ${outputDir} --serve --port ${customPort}`
+    )
+
+    serverProcess.stdout.on("data", (data) => {
+      if (data.includes(`http://localhost:${customPort}`)) {
+        expect(data).toContain(`http://localhost:${customPort}`)
+        serverProcess.kill()
+        done()
+      }
     })
   })
 })

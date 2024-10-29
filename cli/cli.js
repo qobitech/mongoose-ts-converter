@@ -3,12 +3,15 @@ const fs = require("fs")
 const { program } = require("commander")
 const path = require("path")
 const { extractModelsToSchemas } = require("../lib/extractModels")
+const startDocsServer = require("../lib/docServer") // Import docServer module
 
 program
   .version("1.0.0")
   .description("Generate TypeScript schemas from Mongoose models")
   .requiredOption("-m, --models <dir>", "Location of the model directory")
   .requiredOption("-o, --output <dir>", "Location to output TypeScript schemas")
+  .option("--serve", "Start the documentation server after generating schemas")
+  .option("--port <number>", "Specify port for documentation server", 3000)
   .parse(process.argv)
 
 const options = program.opts()
@@ -31,4 +34,10 @@ if (!fs.existsSync(outputDir)) {
 }
 
 // Call the extractor function to generate TypeScript schemas
-extractModelsToSchemas(modelDir, outputDir)
+extractModelsToSchemas(modelDir, outputDir, { generateDocs: !!options.serve })
+
+// Start the documentation server if the --serve option is specified
+if (options.serve) {
+  const port = parseInt(options.port, 10)
+  startDocsServer(outputDir, port)
+}

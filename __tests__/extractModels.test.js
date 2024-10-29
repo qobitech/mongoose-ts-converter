@@ -9,12 +9,16 @@ describe("Model Extraction", () => {
   const outputDir = path.join(__dirname, "models")
 
   it("should extract all models from the given directory", async () => {
-    const models = await extractModelsToSchemas(modelDir, outputDir)
+    const models = await extractModelsToSchemas(modelDir, outputDir, {
+      generateDocs: false,
+    })
     expect(models).toHaveLength(2) // Assuming we have two mock models in this directory
   })
 
   it("should verify the content of the generated typescript files", async () => {
-    const models = await extractModelsToSchemas(modelDir, outputDir)
+    const models = await extractModelsToSchemas(modelDir, outputDir, {
+      generateDocs: false,
+    })
     models.forEach((model) => {
       const modelName = path.basename(model, ".js")
       const tsFilePath = path.join(outputDir, `${modelName}.d.ts`)
@@ -27,8 +31,10 @@ describe("Model Extraction", () => {
   it("should throw an error if the directory does not exist", async () => {
     const invalidDir = path.join(__dirname, "invalidModels")
     const invalidOutputDir = path.join(__dirname, "invalidOutputmodel")
-    await expect(extractModelsToSchemas(invalidDir, "")).rejects.toThrow(
-      "Directory does not exist"
-    )
+    await expect(
+      extractModelsToSchemas(invalidDir, "", {
+        generateDocs: false,
+      })
+    ).rejects.toThrow("Directory does not exist")
   })
 })
