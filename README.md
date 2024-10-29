@@ -92,4 +92,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-For issues, questions, or contributions, please reach out to edekobifrank@gmail.com.
+For issues, questions, or contributions, please reach out to edekobifrank@gmail.com
