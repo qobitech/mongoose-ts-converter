@@ -1,6 +1,6 @@
 {
   "name": "mongoose-ts-converter",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A library that converts Mongoose models from Node.js codebase to TypeScript schema",
   "main": "cli/cli.js",
   "bin": {
