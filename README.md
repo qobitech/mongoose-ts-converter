@@ -13,6 +13,7 @@ Mongoose TypeScript Converter is a lightweight Node.js library designed to simpl
 - Supports complex data types, including nested objects and arrays
 - CLI support for easy integration in projects
 - Option to start a documentation server to view generated types
+- Middleware support for serving documentation in an existing Express app
 
 ## Installation
 
@@ -108,6 +109,39 @@ After running the command, open your browser and go to:
 ```bash
 http://localhost:<specified-port>
 ```
+
+## Use as Middleware
+
+If you want to serve the documentation for generated TypeScript schemas as part of an existing Express application, you can use the docsRouter middleware:
+
+### Setup
+
+1. First, generate the TypeScript schemas using either the CLI or convertToTS function and specify the output directory.
+2. Include docsRouter from mongoose-ts-converter in your Express app, specifying the directory where the generated TypeScript files are stored.
+
+Example
+
+```bash
+// app.js
+const express = require("express");
+const { docsRouter } = require("mongoose-ts-converter");
+
+const app = express();
+const PORT = 3000;
+
+// Serve TypeScript documentation
+app.use("/api-docs", docsRouter("./path/to/output"));
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+```
+
+In this setup
+
+- Replace ./path/to/output with the actual path to the directory where TypeScript files are generated.
+- Access your documentation at http://localhost:3000/api-docs.
 
 ## License
 
