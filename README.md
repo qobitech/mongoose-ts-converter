@@ -143,6 +143,37 @@ In this setup
 - Replace ./path/to/output with the actual path to the directory where TypeScript files are generated.
 - Access your documentation at http://localhost:3000/api-docs.
 
+## JSON API for Schema Documentation
+
+The createDocsRouter middleware also provides a JSON endpoint, which can be useful for frontend applications that need to access schema documentation programmatically.
+
+### JSON Endpoint
+
+Once configured, the following endpoint will be available:
+
+- GET /api-docs/json: Returns a JSON array of objects, each representing a TypeScript schema file with its filename (without extension) and content.
+
+Example JSON Response
+
+```bash
+{
+  "schemas": [
+    {
+      "file": "User",
+      "content": "export interface User { username: string; email: string; }"
+    },
+    {
+      "file": "Product",
+      "content": "export interface Product { name: string; price: number; }"
+    }
+  ]
+}
+```
+
+### Frontend Integration
+
+With this JSON API, you can easily fetch and display the generated TypeScript schemas on a frontend application or another service, enabling seamless access to your documentation.
+
 ## License
 
 This project is licensed under the MIT License.
